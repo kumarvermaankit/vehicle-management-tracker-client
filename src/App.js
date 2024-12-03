@@ -10,20 +10,6 @@ import ComponentList from './components/ComponentList';
 import TransactionForm from './components/TransactionForm';
 
 const App = () => {
-  const [revenueData, setRevenueData] = useState([]);
-
-  useEffect(() => {
-    fetchRevenueData();
-  }, []);
-
-  const fetchRevenueData = async () => {
-    try {
-      const response = await getRevenueData();
-      setRevenueData(response.data);
-    } catch (error) {
-      console.error('Error fetching revenue data:', error);
-    }
-  };
 
   const handleCreateComponent = async (data) => {
     try {
@@ -53,10 +39,6 @@ const App = () => {
   const handleTransactionSubmit = async (transactionData) => {
     try {
       await createTransaction(transactionData);
-
-      const updatedRevenue = await fetchRevenueData();
-      setRevenueData(updatedRevenue);
-
       alert('Transaction successfully created!');
     } catch (error) {
       console.error('Error creating transaction:', error);
@@ -78,7 +60,7 @@ const App = () => {
               </Button>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Button variant="contained" color="primary" fullWidth component="a" href="/revenue">
+              <Button variant="contained" color="primary" fullWidth component="a" href="/">
                 View Revenue
               </Button>
             </Grid>
@@ -106,7 +88,7 @@ const App = () => {
 
           <Box sx={{ marginTop: 3 }}>
             <Routes>
-              <Route path="/revenue" element={<RevenueGraph data={revenueData} />} />
+              <Route path="/" element={<RevenueGraph />} />
               <Route path="/add-component" element={<ComponentForm onSubmit={handleCreateComponent} />} />
               <Route path="/components" element={<ComponentList />} />
               <Route path="/add-vehicle" element={<VehicleForm onSubmit={handleCreateVehicle} />} />

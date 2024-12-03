@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Grid, Typography, Select, MenuItem, FormControl, InputLabel, CircularProgress } from '@mui/material';
 import { getVehicles } from '../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 const TransactionForm = ({ onSubmit }) => {
   const [transactionData, setTransactionData] = useState({
@@ -10,7 +11,7 @@ const TransactionForm = ({ onSubmit }) => {
 
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate()
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,6 +38,7 @@ const TransactionForm = ({ onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     onSubmit(transactionData);
+    navigate("/")
   };
 
   if (loading) {

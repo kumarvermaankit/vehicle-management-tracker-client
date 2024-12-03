@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Grid, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export const ComponentForm = ({ onSubmit }) => {
   const [componentData, setComponentData] = useState({
@@ -8,6 +9,7 @@ export const ComponentForm = ({ onSubmit }) => {
     component_type: '',
     description: ''
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,10 +18,11 @@ export const ComponentForm = ({ onSubmit }) => {
       [name]: value,
     }));
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(componentData);
+    navigate("/components")
+
   };
 
   return (

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Grid, Typography, Select, MenuItem, FormControl, InputLabel, CircularProgress } from '@mui/material';
 import { getVehicles, getComponents } from '../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 const IssueForm = ({ onSubmit }) => {
   const [issueData, setIssueData] = useState({
@@ -13,7 +14,7 @@ const IssueForm = ({ onSubmit }) => {
   const [vehicles, setVehicles] = useState([]);
   const [components, setComponents] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,6 +52,7 @@ const IssueForm = ({ onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     onSubmit(issueData);
+    navigate("/create-transaction")
   };
 
   if (loading) {

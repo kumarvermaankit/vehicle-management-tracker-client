@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { TextField, Button, Box, Grid, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const VehicleForm = ({ onSubmit }) => {
   const [vehicleData, setVehicleData] = useState({
@@ -10,6 +11,7 @@ const VehicleForm = ({ onSubmit }) => {
     model: '',
     year: '',
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +24,7 @@ const VehicleForm = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(vehicleData);
+    navigate("/add-issue")
   };
 
   return (

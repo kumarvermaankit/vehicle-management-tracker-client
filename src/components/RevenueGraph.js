@@ -1,17 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Box, Typography } from '@mui/material';
+import { getRevenueData } from '../utils/api';
 
-export const RevenueGraph = ({ data }) => {
+
+
+export const RevenueGraph = () => {
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
+  const [data, setRevenueData] = useState([]);
 
   const allMonthsData = monthNames.map(month => ({
     date__month: month,
     total_revenue: 0,
   }));
+
+  useEffect(() => {
+    fetchRevenueData();
+  }, []);
+
+  const fetchRevenueData = async () => {
+    try {
+      const response = await getRevenueData();
+      setRevenueData(response.data);
+    } catch (error) {
+      console.error('Error fetching revenue data:', error);
+    }
+  };
 
   data.forEach(item => {
     const monthIndex = item.date__month - 1;
